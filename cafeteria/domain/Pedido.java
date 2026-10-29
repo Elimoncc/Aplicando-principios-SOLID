@@ -116,15 +116,13 @@ public class Pedido {
         }
     }
 
-    public void agregarAgregado(int indice, Agregado agregado) {
+    public void agregarAgregado(
+            int indice, String nombreAgregado, double precioAgregado) {
+
         verificarEditable();
 
-        if (agregado == null) {
-            throw new IllegalArgumentException(
-                "El agregado no puede ser null."
-            );
-        }
-
-        obtenerLinea(indice).agregarAgregado(agregado);
+        obtenerLinea(indice).agregarAgregado(
+            nombreAgregado, precioAgregado
+        );
     }
 }

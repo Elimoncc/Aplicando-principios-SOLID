@@ -8,7 +8,6 @@ import cafeteria.application.factory.CreadorPostre;
 import cafeteria.application.factory.CreadorProducto;
 import cafeteria.application.port.MetodoPago;
 import cafeteria.application.port.ServicioCocina;
-import cafeteria.domain.Agregado;
 import cafeteria.domain.Pedido;
 import cafeteria.domain.Producto;
 import cafeteria.infrastructure.kitchen.CocinaEnMemoria;
@@ -43,11 +42,7 @@ public class Main {
         pedido.agregarProducto(cafe, 2);
         pedido.agregarProducto(pastel, 1);
 
-        Agregado quesoExtra = new Agregado(
-            "Queso extra", 3.00
-        );
-
-        pedido.agregarAgregado(1, quesoExtra);
+        pedido.agregarAgregado(1, "Queso extra", 3.00);
 
         CalculadoraPedido calculadora =
             new CalculadoraPedido();

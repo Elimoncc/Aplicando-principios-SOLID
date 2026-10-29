@@ -1,12 +1,9 @@
 package cafeteria.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class LineaPedido {
+
     private Producto producto;
     private int cantidad;
-    private List<Agregado> agregados;
 
     public LineaPedido(Producto producto, int cantidad) {
         if (producto == null) {
@@ -23,11 +20,16 @@ public class LineaPedido {
 
         this.producto = producto;
         this.cantidad = cantidad;
-        this.agregados = new ArrayList<>();
     }
 
-    public void agregarAgregado(Agregado agregado) {
-        agregados.add(agregado);
+    public void agregarAgregado(
+            String nombreAgregado, double precioAgregado) {
+
+        producto = new Agregado(
+            producto,
+            nombreAgregado,
+            precioAgregado
+        );
     }
 
     public void aumentarCantidad() {
@@ -41,13 +43,7 @@ public class LineaPedido {
     }
 
     public double calcularSubtotal() {
-        double precioUnitario = producto.getPrecio();
-
-        for (Agregado agregado : agregados) {
-            precioUnitario += agregado.getPrecio();
-        }
-
-        return precioUnitario * cantidad;
+        return producto.getPrecio() * cantidad;
     }
 
     public Producto getProducto() {
@@ -56,9 +52,5 @@ public class LineaPedido {
 
     public int getCantidad() {
         return cantidad;
-    }
-
-    public List<Agregado> getAgregados() {
-        return new ArrayList<>(agregados);
     }
 }
