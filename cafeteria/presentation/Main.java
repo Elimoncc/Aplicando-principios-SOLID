@@ -3,12 +3,14 @@ package cafeteria.presentation;
 import cafeteria.application.CalculadoraPedido;
 import cafeteria.application.GestorPedidos;
 import cafeteria.application.Menu;
+import cafeteria.application.factory.CreadorBebida;
+import cafeteria.application.factory.CreadorPostre;
+import cafeteria.application.factory.CreadorProducto;
 import cafeteria.application.port.MetodoPago;
 import cafeteria.application.port.ServicioCocina;
 import cafeteria.domain.Agregado;
-import cafeteria.domain.Bebida;
 import cafeteria.domain.Pedido;
-import cafeteria.domain.Postre;
+import cafeteria.domain.Producto;
 import cafeteria.infrastructure.kitchen.CocinaEnMemoria;
 import cafeteria.infrastructure.payment.PagoEfectivo;
 
@@ -18,14 +20,17 @@ public class Main {
 
         Menu menu = new Menu();
 
-        Bebida cafe = new Bebida(
+        CreadorProducto creadorCafe = new CreadorBebida(
             "Café con leche", 12.00, "Mediano", false
         );
 
-        Postre pastel = new Postre(
+        Producto cafe = creadorCafe.crearProducto();
+
+        CreadorProducto creadorPastel = new CreadorPostre(
             "Pastel de chocolate", 15.00, true, true
         );
 
+        Producto pastel = creadorPastel.crearProducto();
 
         menu.agregarProducto(cafe);
         menu.agregarProducto(pastel);
@@ -37,7 +42,6 @@ public class Main {
 
         pedido.agregarProducto(cafe, 2);
         pedido.agregarProducto(pastel, 1);
-
 
         Agregado quesoExtra = new Agregado(
             "Queso extra", 3.00
@@ -65,7 +69,6 @@ public class Main {
             "Total: Bs "
             + calculadora.calcularTotal(pedido)
         );
-
 
         ServicioCocina cocina = new CocinaEnMemoria();
 
